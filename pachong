@@ -1,0 +1,28 @@
+# pip install requests
+import requests
+
+#伪装自己
+headers = {
+    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'
+}
+
+
+#音乐列表
+list_url = 'https://complexsearch.kugou.com/v2/search/song?callback=callback123&srcappid=2919&clientver=1000&clienttime=1709358780780&mid=bbe059bedfa42666f89e86641e64bf8e&uuid=bbe059bedfa42666f89e86641e64bf8e&dfid=1bn39T3tdX8M05LS9H0hS9qM&keyword=%E5%A4%A7%E9%B1%BC&page=1&pagesize=30&bitrate=0&isfuzzy=0&inputtype=0&platform=WebFilter&userid=0&iscorrection=1&privilege_filter=0&filter=10&token=&appid=1014&signature=c32b5bd4338c1056d4cd45515b02072d'
+list_resp = requests.get(list_url,headers=headers)
+print(list_resp.text)
+
+
+#音乐信息的url
+info_url = 'https://wwwapi.kugou.com/play/songinfo?srcappid=2919&clientver=20000&clienttime=1709356767707&mid=bbe059bedfa42666f89e86641e64bf8e&uuid=bbe059bedfa42666f89e86641e64bf8e&dfid=1bn39T3tdX8M05LS9H0hS9qM&appid=1014&platid=4&encode_album_audio_id=n0800ae&token=&userid=0&signature=1fe4882a4f122f0da8e6e571c005fec8'
+#音乐的url地址
+m_url = 'https://webfs.hw.kugou.com/202403012221/69d6e29373f07a47020cb9349a47d142/v2/bfbdd3df47727b701d4480ea36a8f73b/part/0/960111/G299/M0B/0D/9F/clip_C5UEAGVdYSWAAREwAEycKZt42YE586.mp3'
+
+
+#发送请求到服务器。获取资源
+m_resp = requests.get(m_url,headers=headers)
+
+
+#服务器返回数据--保存数据
+with open('zzz.mp3','wb') as f:
+    f.write(m_resp.content)
